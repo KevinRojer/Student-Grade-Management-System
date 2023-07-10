@@ -95,6 +95,37 @@ namespace Student_Grade_Management_System
             manager.AddGrade(studentID, course, grade);
         }
 
+        static void CalculateAverages(GradeManager manager)
+        {
+            manager.ViewStudents();
+            Console.WriteLine("Enter student ID: ");
+
+            if (int.TryParse(Console.ReadLine(), out int studentID))
+            {
+                manager.CalculateAverageGrade(studentID);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please, try again.");
+            }
+        }
+
+        static void GenerateRreport(GradeManager manager)
+        {
+            if (manager.Students.Count != 0)
+            {
+                Console.WriteLine("Generating report...");
+                Console.WriteLine("---------------------------");
+                manager.GenerateReport();
+                Console.WriteLine("--------------------------");
+            }
+            else
+            {
+                Console.WriteLine("No data available. Please, add students.");
+            }
+            
+        }
+
 
         static void Main()
         {
@@ -125,11 +156,16 @@ namespace Student_Grade_Management_System
                 }
                 else if (choice == "4")
                 {
-
+                    CalculateAverages(manager);
                 }
                 else if (choice == "5")
                 {
+                    GenerateRreport(manager);
+                }
+                else if (choice == "6")
+                {
                     // Exit the while loop
+                    Console.WriteLine("Application Closed.");
                     break;
                 }
                 else
@@ -139,8 +175,6 @@ namespace Student_Grade_Management_System
                 // Print an empty line for readability.
                 Console.WriteLine();
             }
-            // User has exited the application
-            Console.WriteLine("Application Closed.");
         }
     }
 }

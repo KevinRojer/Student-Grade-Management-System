@@ -73,10 +73,42 @@ namespace Student_Grade_Management_System
 			}
 		}
 
-		// A method to generate the report for a course
-		public void GenerateReport(Course course)
+		public void ViewStudents()
 		{
-			// Retrieve the course	
+			foreach (var student in Students)
+			{
+                Console.WriteLine("ID: {0} Name: {1}", student.StudentID, student.Name);
+			}
+		}
+
+		// A method to calculate the average grade for a student
+		public void CalculateAverageGrade(int studentID)
+		{
+			Student? student = GetStudentByID(studentID);
+
+			if (student != null)
+			{
+                double averageGrade = student.CalculateAverageGrade();
+				Console.WriteLine("Avereage grade: {0}", averageGrade);
+			}
+			else
+			{
+				Console.WriteLine("Student not found.");
+			}
+		}
+
+		// A method to generate a report
+		public void GenerateReport()
+		{
+			foreach (var student in Students)
+			{
+                Console.WriteLine("Student: {0} ID: {1}", student.Name, student.StudentID);
+				Console.WriteLine("Grades: ");
+				foreach (var grade in student.Grades)
+				{
+					Console.WriteLine("{0}: {1}", grade.Key, grade.Value);
+				}
+			}	
 		}
 	}
 }
