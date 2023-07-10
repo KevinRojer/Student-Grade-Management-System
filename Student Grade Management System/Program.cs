@@ -12,40 +12,116 @@ namespace Student_Grade_Management_System
         {
             Console.WriteLine("########## Grade Manager ##########");
             Console.WriteLine("1. Add Student");
-            Console.WriteLine("2. Enter Grades");
-            Console.WriteLine("3. Calculate Averages");
-            Console.WriteLine("4. Generate Report");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("2. Add Course");
+            Console.WriteLine("3. Enter Grades");
+            Console.WriteLine("4. Calculate Averages");
+            Console.WriteLine("5. Generate Report");
+            Console.WriteLine("6. Exit");
             Console.WriteLine();
+        }
+
+        static void AddStudent(GradeManager manager)
+        {
+            Console.WriteLine("Enter student name: ");
+            string? name = Console.ReadLine();
+
+            // TODO: Validate only alphabet chars
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("Invalid name. Please, try gain.");
+                return;
+            }
+
+            Console.WriteLine("Enter student ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int studentID))
+            {
+                Console.WriteLine("Invalid student ID. Please, try again.");
+            }
+
+            Student student = new Student(name, studentID);
+            manager.AddStudent(student);
+        }
+
+        static void AddCourse(GradeManager manager)
+        {
+            Console.WriteLine("Enter course name: ");
+            string? course = Console.ReadLine()?.Trim();
+
+            if (string.IsNullOrWhiteSpace(course))
+            {
+                Console.WriteLine("Invalid course name. Please, try again.");
+                return;
+            }
+
+            Console.WriteLine("Enter instructor name: ");
+            string? instructor = Console.ReadLine()?.Trim();
+
+            if (string.IsNullOrWhiteSpace(instructor))
+            {
+                Console.WriteLine("Invalid input. Please, try again.");
+                return;
+            }
+
+            Course newCourse = new Course(course, instructor);
+            manager.AddCourse(newCourse);
+            Console.WriteLine("Course added successfully.");
+        }
+
+        static void AddGrades(GradeManager manager)
+        {
+            Console.WriteLine("Enter student ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int studentID))
+            {
+                Console.WriteLine("Invalid student id. Please, try again.");
+                return;
+            }
+
+            Console.WriteLine("Enter course: ");
+            string? course = Console.ReadLine()?.Trim();
+
+            if (string.IsNullOrWhiteSpace(course))
+            {
+                Console.WriteLine("Invalid course name. Please, try again.");
+                return;
+            }
+
+            Console.WriteLine("Enter grade: ");
+            if (!int.TryParse(Console.ReadLine(), out int grade))
+            {
+                Console.WriteLine("Invalid input for grade. Please, try again.");
+                return;
+            }
+
+            manager.AddGrade(studentID, course, grade);
         }
 
 
         static void Main()
         {
+            GradeManager manager = new GradeManager();
+
             while (true)
             {
                 ShowMenu();
 
-                // Ask user for input
                 Console.WriteLine("Enter your choice: ");
-                string? choice = Console.ReadLine();
+                string? choice = Console.ReadLine()?.Trim();
 
-                // validate input
                 if (string.IsNullOrWhiteSpace(choice))
                 {
                     Console.WriteLine("Invalid input. Please, try again.");
                 }
                 else if (choice == "1")
                 {
-
+                    AddStudent(manager);
                 }
                 else if (choice == "2")
                 {
-
+                    AddCourse(manager);
                 }
                 else if (choice == "3")
                 {
-
+                    AddGrades(manager);
                 }
                 else if (choice == "4")
                 {
